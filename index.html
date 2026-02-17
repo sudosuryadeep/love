@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For You 💖</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Quicksand', sans-serif; overflow: hidden; }
+        .handwritten { font-family: 'Dancing Script', cursive; }
+        
+        /* Premium Background Gradient */
+        .bg-soft-romantic {
+            background: linear-gradient(135deg, #fdfcfb 0%, #e2d1c3 100%);
+            background: linear-gradient(45deg, #ff9a9e 0%, #fad0c4 99%, #fad0c4 100%);
+        }
+
+        /* Smooth button transition */
+        #noBtn { transition: all 0.15s ease-out; }
+        
+        .card-pop {
+            animation: pop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        @keyframes pop {
+            0% { transform: scale(0.8); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+    </style>
+</head>
+<body class="bg-soft-romantic min-h-screen flex items-center justify-center p-6">
+
+    <div class="bg-white/90 backdrop-blur-sm p-8 rounded-[2rem] shadow-2xl max-w-sm w-full text-center card-pop border border-white/50">
+        
+        <div class="mb-6 overflow-hidden rounded-2xl bg-pink-50">
+            <img id="gif" src="https://media.tenor.com/p_VEcmrBsLMAAAAd/tenor.gif" 
+                 class="w-full h-56 object-contain mx-auto transition-all duration-500">
+        </div>
+
+        <h2 id="title" class="text-2xl font-bold text-gray-800 mb-2">Do you love me? 🤗</h2>
+        <p id="text" class="handwritten text-xl text-pink-500 mb-8">~mai tera hi hoo</p>
+
+        <div class="flex justify-center items-center gap-4 h-14 relative" id="buttonArea">
+            <button id="yesBtn" class="bg-gradient-to-r from-pink-500 to-rose-500 text-white font-bold py-3 px-10 rounded-2xl shadow-lg hover:shadow-pink-200 active:scale-90 transition-all">
+                Yes
+            </button>
+            <button id="noBtn" class="bg-gray-100 text-gray-600 font-semibold py-3 px-10 rounded-2xl border border-gray-200 shadow-sm transition-all">
+                No
+            </button>
+        </div>
+    </div>
+
+    <script>
+        const gif = document.getElementById("gif");
+        const title = document.getElementById("title");
+        const text = document.getElementById("text");
+        const noBtn = document.getElementById("noBtn");
+        const yesBtn = document.getElementById("yesBtn");
+
+        let noClickCount = 0;
+
+        const responses = [
+            {
+                gif: "https://media.tenor.com/dltr8Wx24g8AAAAd/tenor.gif",
+                title: "Soch le ache se! 🙄",
+                text: "itte jldi nhi mtt bol 🙄"
+            },
+            {
+                gif: "https://media.tenor.com/tzvzrz4famQAAAAd/tenor.gif",
+                title: "Ek aur baar Soch le! 😣",
+                text: "kyu aisa kr rahi hai 😣"
+            },
+            {
+                gif: "https://media.tenor.com/3bDvSVpiwjoAAAAd/tenor.gif",
+                title: "Manja na! 😭",
+                text: "kitna bhav khaegi... bht glt baat hai 😭"
+            }
+        ];
+
+        noBtn.addEventListener("click", () => {
+            if (noClickCount < responses.length) {
+                const res = responses[noClickCount];
+                gif.src = res.gif;
+                title.innerHTML = res.title;
+                text.innerHTML = res.text;
+                noClickCount++;
+            } else {
+                teleportNoButton();
+            }
+        });
+
+        // Makes the "No" button dodge the cursor/tap
+        function teleportNoButton() {
+            // Screen boundaries for mobile compatibility
+            const padding = 20;
+            const maxX = window.innerWidth - noBtn.offsetWidth - padding;
+            const maxY = window.innerHeight - noBtn.offsetHeight - padding;
+            
+            const randomX = Math.floor(Math.random() * (maxX - padding)) + padding;
+            const randomY = Math.floor(Math.random() * (maxY - padding)) + padding;
+
+            noBtn.style.position = "fixed";
+            noBtn.style.zIndex = "999";
+            noBtn.style.left = `${randomX}px`;
+            noBtn.style.top = `${randomY}px`;
+
+            title.innerHTML = "Pakad ke dikha! 🏃‍♂️";
+            text.innerHTML = "Ab toh option hi nahi hai 😜";
+        }
+
+        yesBtn.addEventListener("click", () => {
+            gif.src = "https://media.tenor.com/A4Lvk69JMJkAAAAd/tenor.gif";
+            title.innerHTML = "Hehehehe, I knew it! 😘";
+            text.innerHTML = "I Love You Too! ❤️";
+            
+            // Clean up
+            noBtn.style.display = "none";
+            yesBtn.style.width = "100%";
+            yesBtn.innerHTML = "Forever! ✨";
+            
+            // Celebration effect
+            document.body.style.backgroundColor = "#fff5f5";
+        });
+    </script>
+
+</body>
+</html>
